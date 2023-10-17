@@ -1,4 +1,17 @@
-**_ 🚀 Codewars Kata Scraper 🚀 _**
+### Codewars Kata Scraper
+
+[MIT License](https://github.com/jmayhewww/codewars-kata-scraper/blob/main/LICENSE)
+
+## Table of Contents 📖
+
+- [About](#about)
+- [Installation](#installation)
+- [Support and Contributions](#support-and-contributions)
+- [License](#license)
+- [Disclaimer](#disclaimer)
+- [Author](#author)
+
+## About 📋
 
 This is a simple scraper that will scrape all the katas from codewars.com and save them in a json file located in whichever directory you want to privately store them in.
 
@@ -35,4 +48,4 @@ This project is for educational purposes only. It is not affiliated with Codewar
 
 ## Author 💻
 
-- [**Joshua Mayhew**](https://www.joshmayhew.dev/) - [LinkedIn](https://www.linkedin.com/in/joshua-mayhew-dev/) - [GitHub](https://github.com/jmayheww)
+[**Joshua Mayhew**](https://www.joshmayhew.dev/) - [LinkedIn](https://www.linkedin.com/in/joshua-mayhew-dev/) - [GitHub](https://github.com/jmayheww)
