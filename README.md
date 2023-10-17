@@ -29,9 +29,10 @@ Found an issue or have an improvement in mind? Bug reports and pull requests are
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-```
+## Disclaimer ⚠️
 
+This project is for educational purposes only. It is not affiliated with Codewars in any way.
 
+## Author 💻
 
-
-```
+- [**Joshua Mayhew**](https://www.joshmayhew.dev/) - [LinkedIn](https://www.linkedin.com/in/joshua-mayhew-dev/) - [GitHub](https://github.com/jmayheww)
