@@ -93,34 +93,6 @@ class CodewarsKataScraper
     JSON.parse(response.body)['data']
   end
 
-  # def scrape_kata_solutions(kata_data)
-  #   solutions = []
-  #   wait = Selenium::WebDriver::Wait.new(timeout: @timeout)
-  #   kata_id = kata_data["id"]
-  #   completed_languages = kata_data["completedLanguages"]
-
-  #   completed_languages.each do |language|
-  #     puts "Scraping solution for #{language}"
-  #     solutions_url = "https://www.codewars.com/kata/#{kata_id}/solutions/#{language}/me"
-  #     puts solutions_url
-  #     @driver.get(solutions_url)
-
-  #     begin
-  #       @driver.manage.timeouts.implicit_wait = 10
-  #       selector = "div.js-result-group pre" # Updated this line with the new selector
-  #       wait.until { @driver.find_element(css: selector).displayed? }
-
-  #       code_content = @driver.execute_script("return document.querySelector('#{selector}').textContent")
-  #       puts "Code content: #{code_content}"
-  #       solutions << {language: language, code: code_content}
-  #     rescue Selenium::WebDriver::Error::TimeoutError
-  #       puts "Timed out waiting for #{language} solution. Skipping this language."
-  #     end
-  #   end
-
-  #   solutions
-  # end
-
   def scrape_kata_solutions(kata_data)
     solutions = []
     wait = Selenium::WebDriver::Wait.new(timeout: @timeout)
@@ -163,31 +135,6 @@ class CodewarsKataScraper
     solutions
   end
 
-  # def view_kata_solutions(kata_data)
-  #   kata_id = kata_data["id"]
-  #   languages = kata_data["completedLanguages"]
-
-  #   languages.each do |language|
-  #     solutions_url = "https://www.codewars.com/kata/#{kata_id}/solutions/#{language}/me"
-  #     puts solutions_url
-  #     @driver.get(solutions_url)
-
-  #     begin
-  #       # Wait for the specified element to be visible
-  #       wait = Selenium::WebDriver::Wait.new(timeout: @timeout)
-  #       selector = "#shell_content"
-  #       wait.until { @driver.find_element(css: selector).displayed? }
-
-  #       puts "Code solutions container loaded"
-
-  #       # Now, you can access the code content as needed
-  #       code_content = @driver.execute_script("return document.querySelector('#{selector}').textContent")
-  #       puts code_content
-  #     rescue Selenium::WebDriver::Error::TimeoutError
-  #       puts "Timed out waiting for code solutions container to load."
-  #     end
-  #   end
-  # end
   def view_kata_solutions(kata_data)
     kata_id = kata_data['id']
     languages = kata_data['completedLanguages']
