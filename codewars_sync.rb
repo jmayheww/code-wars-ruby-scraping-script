@@ -164,11 +164,12 @@ class CodewarsKataScraper
   end
 
   def store_new_kata(katas)
-    katas.each do |kata|
-      File.write(STORED_KATAS_PATH, JSON.pretty_generate(kata))
+    # Load existing katas or initialize an empty array
+    existing_katas = File.exist?(STORED_KATAS_PATH) ? JSON.parse(File.read(STORED_KATAS_PATH)) : []
 
-      commit_and_push_to_git(kata)
-    end
+    combined_katas = existing_katas + katas
+    File.write(STORED_KATAS_PATH, JSON.pretty_generate(combined_katas))
+    katas.each { |kata| commit_and_push_to_git(kata) }
   end
 
   # commit and push each new json object to github
@@ -184,7 +185,7 @@ class CodewarsKataScraper
       `git pull origin main`
 
       puts "Committing changes for #{kata['name']}..."
-      `git add .`
+      `git add #{STORED_KATAS_PATH}`
       `git commit -m "#{kata['name']} - #{kata['completedAt']}"`
       `git push origin main`
     end
