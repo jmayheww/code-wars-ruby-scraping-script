@@ -42,13 +42,15 @@ class CodewarsKataScraper
     if new_kata.any?
       new_kata.each do |kata_data|
         puts "Navigating to kata solutions for #{kata_data['name']}"
-        view_kata_solutions(kata_data)  # Navigate and verify if the page has loaded
-        kata_data['solutions'] = scrape_kata_solutions(kata_data) # Then scrape the data
+        view_kata_solutions(kata_data)
+        kata_data['solutions'] = scrape_kata_solutions(kata_data)
       end
 
       all_katas = existing_kata + new_kata
       store_new_kata(all_katas)
-      commit_and_push_to_git
+
+      puts 'Successfully stored new katas.'
+
     else
       puts 'No new katas found.'
     end
@@ -162,24 +164,37 @@ class CodewarsKataScraper
   end
 
   def store_new_kata(katas)
-    File.write(STORED_KATAS_PATH, JSON.pretty_generate(katas))
+    katas.each do |kata|
+      File.write(STORED_KATAS_PATH, JSON.pretty_generate(kata))
+
+      commit_and_push_to_git(kata)
+    end
   end
 
-  def commit_and_push_to_git
+  # commit and push each new json object to github
+
+  def commit_and_push_to_git(kata)
     Dir.chdir(LOCAL_REPO_PATH) do
-      `git pull origin main`
-      status = `git status --porcelain`
-      if status.empty?
-        puts 'No changes to commit.'
-      else
-        `git add -A`
-        `git commit -m 'Updated completed katas'`
-        `git push origin main`
+      unless Dir.exist?('.git')
+        puts "The directory at #{LOCAL_REPO_PATH} is not a git repository. Exiting..."
+        return
       end
+
+      `git checkout main`
+      `git pull origin main`
+
+      puts "Committing changes for #{kata['name']}..."
+      `git add .`
+      `git commit -m "#{kata['name']} - #{kata['completedAt']}"`
+      `git push origin main`
     end
   end
 end
 
 # Instantiate the scraper and run it
-scraper = CodewarsKataScraper.new
-scraper.run
+begin
+  scraper = CodewarsKataScraper.new
+  scraper.run
+rescue StandardError => e
+  puts "An error occurred: #{e.message}"
+end
